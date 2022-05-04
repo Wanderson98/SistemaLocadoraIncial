@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aula62Exe2.Entidades;
 using Aula62Exe2.Services;
-
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace Aula62Exe2
 {
-    public partial class Form1 : Form
+    public partial class Form1 : MaterialForm
     {
 
         List<Carro> carros = RepositorioCarros.InicializarCarros();
@@ -34,31 +35,14 @@ namespace Aula62Exe2
             }
 
             rbtnCarros.Checked = true;
-            rbtnAvariaNao.Checked = true;
-
-
-
-
+            rbtnAvariaSim.Checked = true;
+            
+           
         }
 
-        private void panel1_MouseClick(object sender, MouseEventArgs e)
-        {
+     
 
-        }
-
-        private void rbtnMotos_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbtnMotos.Checked)
-            {
-                cbbVeiculos.Items.Clear();
-                foreach (Moto item in motos)
-                {
-                    cbbVeiculos.Items.Add(item);
-                }
-            }
-        }
-
-        private void rbtnCarros_CheckedChanged(object sender, EventArgs e)
+        private void rbtnCarros_CheckedChanged_1(object sender, EventArgs e)
         {
             if (rbtnCarros.Checked)
             {
@@ -70,20 +54,36 @@ namespace Aula62Exe2
             }
         }
 
-        private void rbtnAvariaSim_CheckedChanged(object sender, EventArgs e)
+        private void rbtnMotos_CheckedChanged_1(object sender, EventArgs e)
         {
+            if (rbtnMotos.Checked)
+            {
+                cbbVeiculos.Items.Clear();
+                foreach (Moto item in motos)
+                {
+                    cbbVeiculos.Items.Add(item);
+                }
+            }
+        }
+
+        private void rbtnAvariaSim_CheckedChanged_1(object sender, EventArgs e)
+        {
+
             if (rbtnAvariaSim.Checked)
             {
                 lblValorAvaria.Visible = true;
                 txtValorAvaria.Visible = true;
-            } else
+            }
+            else
             {
                 lblValorAvaria.Visible = false;
                 txtValorAvaria.Visible = false;
             }
         }
 
-        private void btnFinalizar_Click(object sender, EventArgs e)
+       
+
+        private void btnFinalizar_Click_1(object sender, EventArgs e)
         {
             Cliente cliente = clientes[cbbClientes.SelectedIndex];
             Veiculo veiculo;
@@ -91,7 +91,7 @@ namespace Aula62Exe2
             {
                 veiculo = motos[cbbVeiculos.SelectedIndex];
             }
-            else 
+            else
             {
                 veiculo = carros[cbbVeiculos.SelectedIndex];
             }
@@ -107,7 +107,7 @@ namespace Aula62Exe2
                 valorAvaria = double.Parse(txtValorAvaria.Text);
                 avaria = true;
             }
-            Locacao locacao = new Locacao(cliente, veiculo, dataInicial, dataEntrega, valorPorHora, valorPorDia, seguro, avaria);
+            Locacao locacao = new Locacao(cliente, veiculo, dataInicial, dataEntrega, valorPorHora, valorPorDia, seguro, valorAvaria, avaria);
             Resultado resultado = new Resultado(locacao);
             resultado.ShowDialog();
         }
